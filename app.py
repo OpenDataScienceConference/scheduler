@@ -33,7 +33,6 @@ def transform(data):
     data_json = {"schedulerEvents": data_dict}
     return(data_json)
 
-
 def encoding(r):
     return [a.encode('iso-8859-1') for a in r]
 
@@ -65,7 +64,6 @@ def transform_view():
     df_data = list(reader(file_contents[1:]))
     df = pd.DataFrame(df_data, columns = cols)
     result = transform(df)
-    print(result)
     response = jsonify(result)
     #response = make_response(result)
     response.headers["Content-Disposition"] = "attachment; filename=odsc_east.json"
