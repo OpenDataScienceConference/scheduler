@@ -64,7 +64,6 @@ def transform_view():
     cols = file_contents[0].split(',')
     df_data = list(reader(file_contents[1:]))
     df = pd.DataFrame(df_data, columns = cols)
-    df = df.applymap(lambda x: unidecode(x))
     result = transform(df)
     response = jsonify(result)
     #response = make_response(result)
