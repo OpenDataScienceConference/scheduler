@@ -1,6 +1,7 @@
 from flask import Flask, make_response, request, jsonify
 from collections import OrderedDict
 import json
+from unidecode import unidecode
 import os
 import pandas as pd
 from csv import reader
@@ -14,7 +15,7 @@ def transform(data):
         data['conference'] = data['conference'].map(lambda x: x.strip())
     except:
         pass
-    data.sort_values(by=['date', 'start time'], inplace=True)
+    data.sort_values(by = ['date', 'start time'], inplace = True)
     data['start time'] = data['start time'].map(lambda x: x[:10] + 'T' + x[11:])
     data_dict = OrderedDict()
     for date in data.date.unique():
@@ -63,6 +64,7 @@ def transform_view():
     cols = file_contents[0].split(',')
     df_data = list(reader(file_contents[1:]))
     df = pd.DataFrame(df_data, columns = cols)
+    df = df.applymap(lambda x: unidecode(x))
     result = transform(df)
     response = jsonify(result)
     #response = make_response(result)
