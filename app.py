@@ -5,9 +5,6 @@ from unidecode import unidecode
 import os
 import pandas as pd
 from csv import reader
-import sys
-
-sys.setdefaultencoding('utf8')
 
 app = Flask(__name__)
 
@@ -61,7 +58,7 @@ def transform_view():
     if not file:
         return "No file"
 
-    file_contents = file.stream.read().decode("latin-1")
+    file_contents = file.stream.read().decode("utf-16")
     file_contents = file_contents.replace('\r', '')
     file_contents = file_contents.split('\n')
     cols = file_contents[0].split(',')
