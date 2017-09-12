@@ -5,6 +5,7 @@ from unidecode import unidecode
 import os
 import pandas as pd
 from csv import reader
+import unidecode
 
 app = Flask(__name__)
 
@@ -62,7 +63,9 @@ def transform_view():
     file_contents = file_contents.replace('\r', '')
     file_contents = file_contents.split('\n')
     cols = file_contents[0].split(',')
-    df_data = list(reader(file_contents[1:]))
+    #print(list(reader(file_contents[1:]))[0])
+
+    df_data = list(reader([unidecode.unidecode(x) for x in file_contents[1:]]))
     df = pd.DataFrame(df_data, columns = cols)
     result = transform(df)
     response = jsonify(result)
