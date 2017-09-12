@@ -58,7 +58,7 @@ def transform_view():
     if not file:
         return "No file"
 
-    file_contents = file.stream.read().decode("utf-8")
+    file_contents = file.stream.read().decode("latin-1")
     file_contents = file_contents.replace('\r', '')
     file_contents = file_contents.split('\n')
     cols = file_contents[0].split(',')
