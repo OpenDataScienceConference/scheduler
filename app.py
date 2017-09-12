@@ -5,6 +5,9 @@ from unidecode import unidecode
 import os
 import pandas as pd
 from csv import reader
+import sys
+
+sys.setdefaultencoding('utf8')
 
 app = Flask(__name__)
 
