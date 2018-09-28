@@ -6,6 +6,7 @@ import os
 import pandas as pd
 from csv import reader
 import unidecode
+import io
 
 app = Flask(__name__)
 
@@ -27,12 +28,12 @@ def transform(data):
         row_dict['room'] = row['Room']
         row_dict['conference'] = row['Session']
         row_dict['title'] = row['Talk Title']
-        #row_dict['link'] = row['link']
+        row_dict['link'] = row['link']
         #row_dict['title2'] = row['Talk Title2']
         row_dict['tags'] = [row['Tag 1 (Topic)'], row['Tag 2 (Technicality)'], row['Tag 3 (Difficulty)']]
         row_dict['speakers'] = [
-            {'name': row['Speaker Name'], 'position': row['Position'], 'pictureUrl': row['pictureUrl'], }]
-        #'detailUrl': row['detailUrl'] 'link': row['link']
+            {'name': row['Speaker Name'], 'position': row['Position'], 'pictureUrl': row['pictureUrl'], 'link': row['link']}]
+        #'detailUrl': row['detailUrl']
         data_dict[row['date']].append(row_dict)
 
     data_json = {"schedulerEvents": data_dict}
@@ -58,6 +59,7 @@ def form():
 
 @app.route('/transform', methods=["POST"])
 def transform_view():
+    
     file = request.files['data_file']
     if not file:
         return "No file"
@@ -70,13 +72,15 @@ def transform_view():
 
     df_data = list(reader([unidecode.unidecode(x) for x in file_contents[1:]]))
     df = pd.DataFrame(df_data, columns = cols)
+    print(df.columns)
     result = transform(df)
     response = jsonify(result)
+
     #response = make_response(result)
-    response.headers["Content-Disposition"] = "attachment; filename=odsc_east.json"
+    response.headers["Content-Disposition"] = "attachment; filename = odsc_schedule.json"
     return response
 
 if __name__ == '__main__':
     app.debug = True
-    port = int(os.environ.get("PORT", 5000))
+    port = int(os.environ.get("PORT", 5001))
     app.run(host='0.0.0.0', port=port)
