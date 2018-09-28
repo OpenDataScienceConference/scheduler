@@ -27,10 +27,11 @@ def transform(data):
         row_dict['room'] = row['Room']
         row_dict['conference'] = row['Session']
         row_dict['title'] = row['Talk Title']
-        row_dict['title2'] = row['Talk Title2']
+        #row_dict['title2'] = row['Talk Title2']
         row_dict['tags'] = [row['Tag 1 (Topic)'], row['Tag 2 (Technicality)'], row['Tag 3 (Difficulty)']]
         row_dict['speakers'] = [
-            {'name': row['Speaker Name'], 'position': row['Position'], 'pictureUrl': row['pictureUrl'], 'detailUrl': row['detailUrl']}]
+            {'name': row['Speaker Name'], 'position': row['Position'], 'pictureUrl': row['pictureUrl'], 'link': row['link']}]
+        #'detailUrl': row['detailUrl']
         data_dict[row['date']].append(row_dict)
 
     data_json = {"schedulerEvents": data_dict}
