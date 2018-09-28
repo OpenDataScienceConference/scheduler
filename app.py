@@ -27,6 +27,7 @@ def transform(data):
         row_dict['room'] = row['Room']
         row_dict['conference'] = row['Session']
         row_dict['title'] = row['Talk Title']
+        row_dict['link'] = row['link']
         #row_dict['title2'] = row['Talk Title2']
         row_dict['tags'] = [row['Tag 1 (Topic)'], row['Tag 2 (Technicality)'], row['Tag 3 (Difficulty)']]
         row_dict['speakers'] = [
