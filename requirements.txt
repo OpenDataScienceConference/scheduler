@@ -9,7 +9,7 @@ MarkupSafe==0.23
 matplotlib==1.5.3
 oauth2client==4.0.0
 oauthlib==2.0.1
-requests>=2.20.0
+requests==2.13.0
 requests-oauthlib==0.8.0
 Werkzeug==0.11.11
 wsgi-request-logger==0.4.6
